@@ -3,7 +3,7 @@ import os
 import sys
 import numpy as np
 
-os.chdir("D:/OneDrive - uibk.ac.at/Uni/MScGeographie/Semester 2/VU Automatisierung")
+os.chdir("D:/_Programmieren/repos/Tabernig.github.io/VU_Automatisierung")
 
 fobj = open("./Daten/testcoordinates.txt","r")
 myfile = []
