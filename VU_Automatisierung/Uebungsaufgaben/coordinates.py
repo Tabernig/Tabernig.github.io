@@ -1,8 +1,11 @@
+#Convert Coordinates from Columns to Rows or the other way.
+
 import argparse
+import numpy as np
 
 parser = argparse.ArgumentParser(description="Dieses Skript öffnet eine ASCII-Datei mit Werten in 2 Spalten.")
-parser.add_argument("-infile",type=str,help="input file")
-parser.add_argument("-outfile",type=str,help="output file")
+parser.add_argument("infile",type=str,help="input file")
+parser.add_argument("outfile",type=str,help="output file")
 
 parser.add_argument("outmode",choices=["rows","columns"], help="mode if data is written in rows or columns")
 args = parser.parse_args()
@@ -27,9 +30,10 @@ for line in fobj:
             pass
     myfile.append(row)
 
+
 myfileArray = np.array(myfile)
 
-if rowOrColumn == "row":
+if rowOrColumn == "rows":
     myfileArray = np.transpose(myfileArray)
     for row in myfileArray:
         i = 0
@@ -46,7 +50,7 @@ else:
         for element in myline:
             fobj_Out.write(str(element))
             if i == 0:
-                fobj_Out.write("\n")
+                fobj_Out.write(";")
                 i+=1
         fobj_Out.write("\n")
 
@@ -55,10 +59,12 @@ else:
 print(args.infile)
 print(args.outfile)
 print(args.outmode)
+print(type(args.outmode))
 
 fobj.close()
-fobj_out.close()
+fobj_Out.close()
 print("Done.")
 
 #cd D:\_Programmieren\repos\Tabernig.github.io\VU_Automatisierung\Uebungsaufgaben
 #coordinates.py [-h] [-infile pointcloud1_small.txt] [-outfile ausgabe.txt] {rows}
+#python D:\_Programmieren\repos\Tabernig.github.io\VU_Automatisierung\Uebungsaufgaben\coordinates.py D:\_Programmieren\repos\Tabernig.github.io\VU_Automatisierung\Uebungsaufgaben\pointcloud1_small.txt D:\_Programmieren\repos\Tabernig.github.io\VU_Automatisierung\Uebungsaufgaben\ausgabe.txt rows
