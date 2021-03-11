@@ -61,4 +61,4 @@ fobj_out.close()
 print("Done.")
 
 #cd D:\_Programmieren\repos\Tabernig.github.io\VU_Automatisierung\Uebungsaufgaben
-#parser.py [-h] [-infile pointcloud1_small.txt] [-outfile ausgabe.txt] {rows}
+#coordinates.py [-h] [-infile pointcloud1_small.txt] [-outfile ausgabe.txt] {rows}
