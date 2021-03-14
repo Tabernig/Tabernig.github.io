@@ -1,0 +1,32 @@
+body {
+    background: -webkit-linear-gradient(-0.01deg, #ffffff, #240b44);
+    font-family: Arial;
+    color: black;
+}
+
+h1 {
+    font-family: Georgia;
+    font-size: 30px;
+}
+
+p {
+    font-size: 20px;
+    
+}
+ul {
+    font-size: 20px;
+}
+
+
+div.content {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.dotted {
+    border: 2px dotted black;
+}
+
+.solid {
+    border: 2px solid black;
+}
