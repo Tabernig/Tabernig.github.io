@@ -1,7 +1,27 @@
 body {
-    background: -webkit-linear-gradient(-0.01deg, #ffffff, #240b44);
+    background: linear-gradient(90deg, white, rgb(202, 199, 199));
     font-family: Arial;
     color: black;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(90deg, rgb(58, 58, 58), rgb(0, 0, 0));
+        color: white;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+a:link,
+a:visited {
+    color: blue;
+}
+
+a:hover {
+    color: red;
 }
 
 h1 {
@@ -11,8 +31,9 @@ h1 {
 
 p {
     font-size: 20px;
-    
+
 }
+
 ul {
     font-size: 20px;
 }
