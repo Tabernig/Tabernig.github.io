@@ -21,7 +21,7 @@ a:visited {
 }
 
 a:hover {
-    color: red;
+    color: rgb(155, 155, 233);
 }
 
 h1 {
@@ -35,13 +35,18 @@ p {
 }
 
 ul {
+    display: block;
+    margin: 0 5%;
     font-size: 20px;
 }
 
+.center{
+    text-align: center;
+}
 
 div.content {
-    width: 960px;
-    margin: 0 auto;
+    width: auto;
+    margin: 20px auto;
 }
 
 .dotted {
