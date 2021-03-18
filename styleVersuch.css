@@ -57,3 +57,8 @@ div.content {
 .solid {
     border: 2px solid black;
 }
+
+i {
+    padding-right: 0.3em;
+    padding-left: 0.3em;
+}
