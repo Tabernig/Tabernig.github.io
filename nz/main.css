@@ -75,5 +75,10 @@ footer .back {
 }
 
 footer {
-    padding: 1em 0 3em 0
+    padding: 1em 0 3em 0;
+}
+
+i {
+    padding-right: 0.3em;
+    padding-left: 0.3em;
 }
