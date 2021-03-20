@@ -1,4 +1,3 @@
-var favouriteFood = "pizza";
-var numOfSlices = 8;
-console.log(favouriteFood);
-console.log(numOfSlices);
+let changeMe = true;
+changeMe = false
+console.log(changeMe)
