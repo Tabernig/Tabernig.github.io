@@ -27,8 +27,6 @@ for (let entry of ROUTE) {
     nav.innerHTML += `
         <option value="${entry.user}">Stop ${entry.nr} ${entry.name}</option>
     `;
-
-
     let mrk = L.marker([entry.lat,entry.lng]).addTo(map);
 
     // Pop-Up
