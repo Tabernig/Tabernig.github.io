@@ -15,6 +15,9 @@ const map = L.map("map", {
     ]
 });
 
+
+
+
 for (let entry of ROUTE) {
     console.log(entry);
     //Marker
@@ -30,6 +33,9 @@ for (let entry of ROUTE) {
         mrk.openPopup();
     }
 }
+
+
+//<option value="tabernig">Sandfly Bay</option>
 
 // //Marker
 // let mrk = L.marker([stop.lat,stop.lng]).addTo(map);
