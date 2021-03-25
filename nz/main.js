@@ -9,8 +9,11 @@ const map = L.map("map", {
     ]
 });
 
-
+//Marker
 let mrk = L.marker([-45.896031, 170.647314]).addTo(map);
+
+// Pop-Up
+mrk.bindPopup("Sandfly Bay").openPopup();
 
 // WMTS - Services
 console.log(document.querySelector("#map"))
