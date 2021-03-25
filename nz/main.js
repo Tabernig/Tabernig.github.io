@@ -6,13 +6,6 @@ let stop = {
     user: "Ronald Christian Tabernig",
     wikipedia: "https://en.m.wikipedia.org/wiki/Sandfly_Bay"
 };
-console.log(stop);
-console.log(stop.name);
-console.log(stop.lat);
-console.log(stop.lng);
-console.log(stop.wikipedia);
-console.log("Hello World");
-console.log(L);
 
 const map = L.map("map", {
     center: [stop.lat,stop.lng],
@@ -22,15 +15,36 @@ const map = L.map("map", {
     ]
 });
 
-//Marker
-let mrk = L.marker([stop.lat,stop.lng]).addTo(map);
+for (let entry of ROUTE) {
+    console.log(entry);
+    //Marker
+    let mrk = L.marker([entry.lat,entry.lng]).addTo(map);
 
-// Pop-Up
-mrk.bindPopup(`
-    <h4> Stop ${stop.nr}:${stop.name}</h4>
-    <p><i class ="fas fa-external-link-alt mr-3"></i><a href = "${stop.wikipedia}" >Read about stop in Wikipedia </a></p>
+    // Pop-Up
+    mrk.bindPopup(`
+    <h4> Stop ${entry.nr}:${entry.name}</h4>
+    <p><i class ="fas fa-external-link-alt mr-3"></i><a href = "${entry.wikipedia}" >Read about Stop in Wikipedia </a></p>
 `).openPopup();
+
+}
+
+// //Marker
+// let mrk = L.marker([stop.lat,stop.lng]).addTo(map);
+
+// // Pop-Up
+// mrk.bindPopup(`
+//     <h4> Stop ${stop.nr}:${stop.name}</h4>
+//     <p><i class ="fas fa-external-link-alt mr-3"></i><a href = "${stop.wikipedia}" >Read about stop in Wikipedia </a></p>
+// `).openPopup();
 
 // WMTS - Services
 //console.log(document.querySelector("#map"))
 
+// console.log(stop);
+// console.log(stop.name);
+// console.log(stop.lat);
+// console.log(stop.lng);
+// console.log(stop.wikipedia);
+// console.log("Hello World");
+// console.log(L);
+// console.log(ROUTE);
