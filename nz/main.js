@@ -48,6 +48,8 @@ nav.onchange = (evt) => {
     let username = options[selected].value;
     let link = `https://${username}.github.io/nz/index.html`
     console.log(link);
+    //Verlinkt auf die jeweilige Seite.
+    window.location.href = link;
 };
 
 //<option value="tabernig">Sandfly Bay</option>
