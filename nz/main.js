@@ -1,5 +1,5 @@
 let stop = {
-    nr: 10,
+    nr: 9,
     name: "Sandfly Bay",
     lat: -45.896031,
     lng: 170.647314,
