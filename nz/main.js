@@ -24,8 +24,10 @@ for (let entry of ROUTE) {
     mrk.bindPopup(`
     <h4> Stop ${entry.nr}:${entry.name}</h4>
     <p><i class ="fas fa-external-link-alt mr-3"></i><a href = "${entry.wikipedia}" >Read about Stop in Wikipedia </a></p>
-`).openPopup();
-
+`);
+    if (entry.nr == 9) {
+        mrk.openPopup();
+    }
 }
 
 // //Marker
