@@ -55,13 +55,6 @@ const ROUTE = [{
     user: "annakarolinv",
     wikipedia: "https://en.wikipedia.org/wiki/Doubtful_Sound_/_Patea"
 }, {
-    nr: 17,
-    name: "Picton",
-    lat: -41.293056,
-    lng: 174.001944,
-    user: "maximilianender",
-    wikipedia: "https://en.wikipedia.org/wiki/Picton,_New_Zealand",
-}, {
     nr: 20,
     name: "Wellington",
     lat: -41.2875,
@@ -131,13 +124,6 @@ const ROUTE = [{
     lng: 169.15,
     user: "csnwolf",
     wikipedia: "https://en.wikipedia.org/wiki/Wanaka"
-}, {
-    nr: 5,
-    name: "Oamaru",
-    lat: -45.09746,
-    lng: 170.96911,
-    user: "marlene353",
-    wikipedia: "https://de.wikipedia.org/wiki/Oamaru"
 }, {
     nr: 3,
     name: "Tongariro National Park",

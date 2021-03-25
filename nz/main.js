@@ -42,6 +42,7 @@ for (let entry of ROUTE) {
     }
 }
 
+nav.options.selectedIndex = 9-1;
 nav.onchange = (evt) => {
     let selected = evt.target.selectedIndex;
     let options = evt.target.options;
@@ -51,6 +52,7 @@ nav.onchange = (evt) => {
     //Verlinkt auf die jeweilige Seite.
     window.location.href = link;
 };
+
 
 //<option value="tabernig">Sandfly Bay</option>
 
