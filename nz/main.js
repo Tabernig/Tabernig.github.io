@@ -42,6 +42,13 @@ for (let entry of ROUTE) {
     }
 }
 
+nav.onchange = (evt) => {
+    let selected = evt.target.selectedIndex;
+    let options = evt.target.options;
+    let username = options[selected].value;
+    let link = `https://${username}.github.io/nz/index.html`
+    console.log(link);
+};
 
 //<option value="tabernig">Sandfly Bay</option>
 
