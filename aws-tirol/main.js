@@ -30,7 +30,12 @@ layerControl.addOverlay(awsLayer,"Wetterstationen Tirol");
 //awsLayer.addTo(map);
 let snowLayer = L.featureGroup();
 layerControl.addOverlay(snowLayer,"Schneehöhen");
-snowLayer.addTo(map);
+//snowLayer.addTo(map);
+
+let windLayer = L.featureGroup();
+layerControl.addOverlay(windLayer,"Windgeschwindigkeit");
+windLayer.addTo(map);
+
 fetch(awsUrl)
     .then(response => response.json())
     .then(json => {
@@ -53,7 +58,7 @@ fetch(awsUrl)
                 <li>Windrichtung: ${station.properties.WR || "?"} ° </li>
                 <li>Schneehöhe: ${station.properties.HS || "?"} cm </li>
             </ul>
-            <a target = "_blank"href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.layerGroup}.png">Grafik</a>            
+            <a target = "_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.layerGroup}.png">Grafik</a>            
             `)
             marker.addTo(awsLayer);
             if (station.properties.HS) {
@@ -76,6 +81,27 @@ fetch(awsUrl)
                 });
                 snowMarker.addTo(snowLayer);
             }
+            if (station.properties.WG) {
+                let highlightwClass = "";
+                if (station.properties.WG > 10) {
+                    highlightwClass = "wind-10";
+                }
+                if (station.properties.WG > 20) {
+                    highlightwClass = "wind-20";
+                }
+                let windIcon = L.divIcon({
+                    html:`<div class="wind-label ${highlightwClass}">${station.properties.WG}</div>`
+                })
+
+                let windMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ],{
+                    icon: windIcon
+                });
+                windMarker.addTo(windLayer);
+            }
         map.fitBounds(awsLayer.getBounds());
         }
+
 });
