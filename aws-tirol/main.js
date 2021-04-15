@@ -42,5 +42,6 @@ fetch(awsUrl)
             ]);
             marker.bindPopup(`<h3>${station.properties.name}</h3>`)
             marker.addTo(awsLayer);
+            map.fitBounds(awsLayer.getBounds());
         }
 });
