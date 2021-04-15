@@ -15,9 +15,9 @@ let layerControl = L.control.layers({
     "BasemapAt.orthofoto":L.tileLayer.provider("BasemapAT.orthofoto"),
     "BasemapAt.highD":L.tileLayer.provider("BasemapAT.highdpi"),
     "BasemapAt.overlay":L.tileLayer.provider("BasemapAT.overlay"),
-    "BasemapAT.overlay+ortho":L.layerGroup([
-        L.tileLayer("BasemapAT.orthofoto"),
-        L.tileLayer("BasemapAT.overlay"),
+    "BasemapAT.overlay+ortho": L.layerGroup([
+        L.tileLayer.provider('BasemapAT.orthofoto'),
+        L.tileLayer.provider('BasemapAT.overlay')
     ]),
     "BasemapAt.EsriNatGeo":L.tileLayer.provider("Esri.NatGeoWorldMap"),
     "BasemapAt.ESRIworldImagery":L.tileLayer.provider("Esri.WorldImagery"),
@@ -58,8 +58,8 @@ fetch(awsUrl)
                 <li>Windrichtung: ${station.properties.WR || "?"} ° </li>
                 <li>Schneehöhe: ${station.properties.HS || "?"} cm </li>
             </ul>
-            <a target = "_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.layerGroup}.png">Grafik</a>            
-            `)
+            <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
+            `);
             marker.addTo(awsLayer);
             if (station.properties.HS) {
                 let highlightClass = "";
@@ -82,15 +82,15 @@ fetch(awsUrl)
                 snowMarker.addTo(snowLayer);
             }
             if (station.properties.WG) {
-                let highlightwClass = "";
+                let windhighlightClass = "";
                 if (station.properties.WG > 10) {
-                    highlightwClass = "wind-10";
+                    windhighlightClass = "wind-10";
                 }
                 if (station.properties.WG > 20) {
-                    highlightwClass = "wind-20";
+                    windhighlightClass = "wind-20";
                 }
                 let windIcon = L.divIcon({
-                    html:`<div class="wind-label ${highlightwClass}">${station.properties.WG}</div>`
+                    html:`<div class="wind-label ${windhighlightClass}">${station.properties.WG}</div>`
                 })
 
                 let windMarker = L.marker([
