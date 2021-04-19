@@ -108,11 +108,11 @@ fetch(awsUrl)
             }
             if (station.properties.LT < 999999) {
                 let airThighlightClass = "";
-                if (station.properties.LT > 10) {
-                    airThighlightClass = "airT-10";
+                if (station.properties.LT < 0) {
+                    airThighlightClass = "airTn";
                 }
-                if (station.properties.LT > 20) {
-                    airThighlightClass = "airT-20";
+                if (station.properties.LT >= 0) {
+                    airThighlightClass = "airTp";
                 }
                 let airTIcon = L.divIcon({
                     html:`<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`

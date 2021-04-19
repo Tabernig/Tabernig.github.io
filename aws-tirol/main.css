@@ -52,3 +52,10 @@ h2 {
 .wind-20 {
     background-color: red;
 }
+
+.airTp {
+    background-color: green;
+}
+.airTn {
+    background-color: blue;
+}
