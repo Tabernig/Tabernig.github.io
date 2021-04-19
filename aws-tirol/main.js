@@ -1,7 +1,9 @@
 //https://leaflet-extras.github.io/leaflet-providers/preview/
 
+//https://leafletjs.com/reference-1.7.1.html#tilelayer
 let basemapGrey = L.tileLayer.provider("BasemapAT.grau");
 
+//https://leafletjs.com/reference-1.7.1.html#map
 let map = L.map("map", {
     center: [47, 11],
     zoom: 9,
@@ -10,34 +12,50 @@ let map = L.map("map", {
     ],
 });
 
+//https://leafletjs.com/reference-1.7.1.html#control
 let layerControl = L.control.layers({
     "BasemapAt.grau": basemapGrey,
+    //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.orthofoto": L.tileLayer.provider("BasemapAT.orthofoto"),
+    //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.highD": L.tileLayer.provider("BasemapAT.highdpi"),
+    //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.overlay": L.tileLayer.provider("BasemapAT.overlay"),
+    //https://leafletjs.com/reference-1.7.1.html#layergroup
     "BasemapAT.overlay+ortho": L.layerGroup([
+        //https://leafletjs.com/reference-1.7.1.html#tilelayer
         L.tileLayer.provider('BasemapAT.orthofoto'),
+        //https://leafletjs.com/reference-1.7.1.html#tilelayer
         L.tileLayer.provider('BasemapAT.overlay')
     ]),
+    //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.EsriNatGeo": L.tileLayer.provider("Esri.NatGeoWorldMap"),
+    //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.ESRIworldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }).addTo(map);
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
-
+//https://leafletjs.com/reference-1.7.1.html#featuregroup
 let awsLayer = L.featureGroup();
+//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
 layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 //awsLayer.addTo(map);
+//https://leafletjs.com/reference-1.7.1.html#featuregroup
 let snowLayer = L.featureGroup();
+//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
 layerControl.addOverlay(snowLayer, "Schneehöhen");
 //snowLayer.addTo(map);
 
+//https://leafletjs.com/reference-1.7.1.html#featuregroup
 let windLayer = L.featureGroup();
+//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
 layerControl.addOverlay(windLayer, "Windgeschwindigkeit");
 //windLayer.addTo(map);
-
+//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
 let airTLayer = L.featureGroup();
+//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
 layerControl.addOverlay(airTLayer, "Lufttemperatur");
+
 airTLayer.addTo(map);
 
 
@@ -47,6 +65,7 @@ fetch(awsUrl)
         console.log("Daten konvertiert: ", json);
         for (station of json.features) {
             console.log("Station: ", station);
+            //https://leafletjs.com/reference-1.7.1.html#marker
             let marker = L.marker([
                 station.geometry.coordinates[1],
                 station.geometry.coordinates[0]
@@ -74,10 +93,11 @@ fetch(awsUrl)
                 if (station.properties.HS > 200) {
                     highlightClass = "snow-200";
                 }
+                //https://leafletjs.com/reference-1.7.1.html#divicon
                 let snowIcon = L.divIcon({
                     html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
                 })
-
+                //https://leafletjs.com/reference-1.7.1.html#marker
                 let snowMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
@@ -94,10 +114,11 @@ fetch(awsUrl)
                 if (station.properties.WG > 20) {
                     windhighlightClass = "wind-20";
                 }
+                //https://leafletjs.com/reference-1.7.1.html#divicon
                 let windIcon = L.divIcon({
                     html: `<div class="wind-label ${windhighlightClass}">${station.properties.WG}</div>`
                 })
-
+                //https://leafletjs.com/reference-1.7.1.html#marker
                 let windMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
@@ -114,10 +135,11 @@ fetch(awsUrl)
                 if (station.properties.LT >= 0) {
                     airThighlightClass = "airTp";
                 }
+                //https://leafletjs.com/reference-1.7.1.html#divicon
                 let airTIcon = L.divIcon({
                     html: `<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`
                 })
-
+                //https://leafletjs.com/reference-1.7.1.html#marker
                 let airTMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
