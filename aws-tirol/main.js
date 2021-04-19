@@ -106,7 +106,7 @@ fetch(awsUrl)
                 });
                 windMarker.addTo(windLayer);
             }
-            if (station.properties.LT) {
+            if (station.properties.LT < 999999) {
                 let airThighlightClass = "";
                 if (station.properties.LT > 10) {
                     airThighlightClass = "airT-10";
