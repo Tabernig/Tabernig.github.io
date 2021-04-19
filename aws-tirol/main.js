@@ -34,7 +34,12 @@ layerControl.addOverlay(snowLayer,"Schneehöhen");
 
 let windLayer = L.featureGroup();
 layerControl.addOverlay(windLayer,"Windgeschwindigkeit");
-windLayer.addTo(map);
+//windLayer.addTo(map);
+
+let airTLayer = L.featureGroup();
+layerControl.addOverlay(airTLayer,"Lufttemperatur");
+airTLayer.addTo(map);
+
 
 fetch(awsUrl)
     .then(response => response.json())
@@ -100,6 +105,26 @@ fetch(awsUrl)
                     icon: windIcon
                 });
                 windMarker.addTo(windLayer);
+            }
+            if (station.properties.LT) {
+                let airThighlightClass = "";
+                if (station.properties.LT > 10) {
+                    airThighlightClass = "airT-10";
+                }
+                if (station.properties.LT > 20) {
+                    airThighlightClass = "airT-20";
+                }
+                let airTIcon = L.divIcon({
+                    html:`<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`
+                })
+
+                let airTMarker = L.marker([
+                    station.geometry.coordinates[1],
+                    station.geometry.coordinates[0]
+                ],{
+                    icon: airTIcon
+                });
+                airTMarker.addTo(airTLayer);
             }
         map.fitBounds(awsLayer.getBounds());
         }
