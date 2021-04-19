@@ -3,7 +3,7 @@
 let basemapGrey = L.tileLayer.provider("BasemapAT.grau");
 
 let map = L.map("map", {
-    center: [47,11],
+    center: [47, 11],
     zoom: 9,
     layers: [
         basemapGrey
@@ -11,33 +11,33 @@ let map = L.map("map", {
 });
 
 let layerControl = L.control.layers({
-    "BasemapAt.grau":basemapGrey,
-    "BasemapAt.orthofoto":L.tileLayer.provider("BasemapAT.orthofoto"),
-    "BasemapAt.highD":L.tileLayer.provider("BasemapAT.highdpi"),
-    "BasemapAt.overlay":L.tileLayer.provider("BasemapAT.overlay"),
+    "BasemapAt.grau": basemapGrey,
+    "BasemapAt.orthofoto": L.tileLayer.provider("BasemapAT.orthofoto"),
+    "BasemapAt.highD": L.tileLayer.provider("BasemapAT.highdpi"),
+    "BasemapAt.overlay": L.tileLayer.provider("BasemapAT.overlay"),
     "BasemapAT.overlay+ortho": L.layerGroup([
         L.tileLayer.provider('BasemapAT.orthofoto'),
         L.tileLayer.provider('BasemapAT.overlay')
     ]),
-    "BasemapAt.EsriNatGeo":L.tileLayer.provider("Esri.NatGeoWorldMap"),
-    "BasemapAt.ESRIworldImagery":L.tileLayer.provider("Esri.WorldImagery"),
+    "BasemapAt.EsriNatGeo": L.tileLayer.provider("Esri.NatGeoWorldMap"),
+    "BasemapAt.ESRIworldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }).addTo(map);
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
 
 let awsLayer = L.featureGroup();
-layerControl.addOverlay(awsLayer,"Wetterstationen Tirol");
+layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
 //awsLayer.addTo(map);
 let snowLayer = L.featureGroup();
-layerControl.addOverlay(snowLayer,"Schneehöhen");
+layerControl.addOverlay(snowLayer, "Schneehöhen");
 //snowLayer.addTo(map);
 
 let windLayer = L.featureGroup();
-layerControl.addOverlay(windLayer,"Windgeschwindigkeit");
+layerControl.addOverlay(windLayer, "Windgeschwindigkeit");
 //windLayer.addTo(map);
 
 let airTLayer = L.featureGroup();
-layerControl.addOverlay(airTLayer,"Lufttemperatur");
+layerControl.addOverlay(airTLayer, "Lufttemperatur");
 airTLayer.addTo(map);
 
 
@@ -75,13 +75,13 @@ fetch(awsUrl)
                     highlightClass = "snow-200";
                 }
                 let snowIcon = L.divIcon({
-                    html:`<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
+                    html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
                 })
 
                 let snowMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
-                ],{
+                ], {
                     icon: snowIcon
                 });
                 snowMarker.addTo(snowLayer);
@@ -95,13 +95,13 @@ fetch(awsUrl)
                     windhighlightClass = "wind-20";
                 }
                 let windIcon = L.divIcon({
-                    html:`<div class="wind-label ${windhighlightClass}">${station.properties.WG}</div>`
+                    html: `<div class="wind-label ${windhighlightClass}">${station.properties.WG}</div>`
                 })
 
                 let windMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
-                ],{
+                ], {
                     icon: windIcon
                 });
                 windMarker.addTo(windLayer);
@@ -115,18 +115,18 @@ fetch(awsUrl)
                     airThighlightClass = "airTp";
                 }
                 let airTIcon = L.divIcon({
-                    html:`<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`
+                    html: `<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`
                 })
 
                 let airTMarker = L.marker([
                     station.geometry.coordinates[1],
                     station.geometry.coordinates[0]
-                ],{
+                ], {
                     icon: airTIcon
                 });
                 airTMarker.addTo(airTLayer);
             }
-        map.fitBounds(awsLayer.getBounds());
+            map.fitBounds(awsLayer.getBounds());
         }
 
-});
+    });
