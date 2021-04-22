@@ -12,6 +12,16 @@ let map = L.map("map", {
     ],
 });
 
+let overlays = {
+    stations: L.featureGroup(),
+    temperatur: L.featureGroup(),
+    snowhight: L.featureGroup(),
+    windspeed: L.featureGroup(),
+    winddirection: L.featureGroup(),
+};
+console.log(overlays.stations);
+
+
 //https://leafletjs.com/reference-1.7.1.html#control
 let layerControl = L.control.layers({
     "BasemapAt.grau": basemapGrey,
@@ -32,31 +42,19 @@ let layerControl = L.control.layers({
     "BasemapAt.EsriNatGeo": L.tileLayer.provider("Esri.NatGeoWorldMap"),
     //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.ESRIworldImagery": L.tileLayer.provider("Esri.WorldImagery"),
-}).addTo(map);
+}, {
+    "Wetterstationen Tirol":overlays.stations,
+    "Temperatur (°C)":overlays.temperatur,
+    "Schneehöhe (cm)":overlays.snowhight,
+    "Windgeschwindigkeit (km/h)":overlays.windspeed,
+    "Windrichtung":overlays.winddirection,
+    }).addTo(map);
+overlays.temperatur.addTo(map);
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
-//https://leafletjs.com/reference-1.7.1.html#featuregroup
-let awsLayer = L.featureGroup();
-//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
-layerControl.addOverlay(awsLayer, "Wetterstationen Tirol");
-//awsLayer.addTo(map);
-//https://leafletjs.com/reference-1.7.1.html#featuregroup
-let snowLayer = L.featureGroup();
-//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
-layerControl.addOverlay(snowLayer, "Schneehöhen");
-//snowLayer.addTo(map);
 
-//https://leafletjs.com/reference-1.7.1.html#featuregroup
-let windLayer = L.featureGroup();
-//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
-layerControl.addOverlay(windLayer, "Windgeschwindigkeit");
-//windLayer.addTo(map);
-//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
-let airTLayer = L.featureGroup();
-//https://leafletjs.com/reference-1.7.1.html#control-layers-addoverlay
-layerControl.addOverlay(airTLayer, "Lufttemperatur");
 
-airTLayer.addTo(map);
+//airTLayer.addTo(map);
 
 
 fetch(awsUrl)
@@ -84,7 +82,7 @@ fetch(awsUrl)
             </ul>
             <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
             `);
-            marker.addTo(awsLayer);
+            marker.addTo(overlays.stations);
             if (station.properties.HS) {
                 let highlightClass = "";
                 if (station.properties.HS > 100) {
@@ -104,7 +102,7 @@ fetch(awsUrl)
                 ], {
                     icon: snowIcon
                 });
-                snowMarker.addTo(snowLayer);
+                snowMarker.addTo(overlays.snowhight);
             }
             if (station.properties.WG) {
                 let windhighlightClass = "";
@@ -125,7 +123,7 @@ fetch(awsUrl)
                 ], {
                     icon: windIcon
                 });
-                windMarker.addTo(windLayer);
+                windMarker.addTo(overlays.windspeed);
             }
             if (station.properties.LT < 999999) {
                 let airThighlightClass = "";
@@ -146,9 +144,9 @@ fetch(awsUrl)
                 ], {
                     icon: airTIcon
                 });
-                airTMarker.addTo(airTLayer);
+                airTMarker.addTo(overlays.temperatur);
             }
-            map.fitBounds(awsLayer.getBounds());
+            map.fitBounds(overlays.stations.getBounds());
         }
 
     });
