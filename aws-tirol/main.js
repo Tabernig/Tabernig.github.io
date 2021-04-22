@@ -14,7 +14,7 @@ let map = L.map("map", {
 
 let overlays = {
     stations: L.featureGroup(),
-    temperatur: L.featureGroup(),
+    temperature: L.featureGroup(),
     snowhight: L.featureGroup(),
     windspeed: L.featureGroup(),
     winddirection: L.featureGroup(),
@@ -44,7 +44,7 @@ let layerControl = L.control.layers({
     "BasemapAt.ESRIworldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }, {
     "Wetterstationen Tirol":overlays.stations,
-    "Temperatur (°C)":overlays.temperatur,
+    "Temperatur (°C)":overlays.temperature,
     "Schneehöhe (cm)":overlays.snowhight,
     "Windgeschwindigkeit (km/h)":overlays.windspeed,
     "Windrichtung":overlays.winddirection,
@@ -53,7 +53,7 @@ let layerControl = L.control.layers({
     }).addTo(map);
 
 //Wird dargestellt
-overlays.temperatur.addTo(map);
+overlays.temperature.addTo(map);
 
 //Maßstab einbauen
 
@@ -78,15 +78,17 @@ let getColor = (value, colorRamp) => {
 };
 
 let newLabel = (coords, options) => {
-    let color = getColor(options.value,options.colors)
+    let color = getColor(options.value,options.colors);
+    //console.log("Wert ", value, "bekommt Farbe ", color);
     let label = L.divIcon({
-        html:`<div>${options.value}</div>`,
+        html:`<div style ="background-color: ${color}">${options.value}</div>`,
         className: "text-label"
     })
     // console.log("Koordinaten: ", coords);
     // console.log("Optionsobjekt: ", options);
     let marker = L.marker([coords[1],coords[0]], {
-        icon: label
+        icon: label,
+        title: `${options.station} (${coords[2]} m)`
     });
     //console.log("Marker: ", marker);
     return marker;
@@ -125,31 +127,34 @@ fetch(awsUrl)
             marker.addTo(overlays.stations);
             if (typeof station.properties.HS == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.HS,
+                    value: station.properties.HS.toFixed(0),
                     colors: COLORS.snowheight,
+                    station: station.properties.name
                 });
                 marker.addTo(overlays.snowhight);
             }
             if (typeof station.properties.WG == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.WG,
-                    color: COLORS.windspeed,
+                    value: station.properties.WG.toFixed(0),
+                    colors: COLORS.windspeed,
+                    station: station.properties.name
                 });
                 marker.addTo(overlays.windspeed);
             }
             if (typeof(station.properties.LT) == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.LT,
-                    color: COLORS.temperature,
+                    value: station.properties.LT.toFixed(1),
+                    colors: COLORS.temperature,
+                    station: station.properties.name
                 });
-                marker.addTo(overlays.temperatur);
+                marker.addTo(overlays.temperature);
             }
-            if (typeof station.properties.WR == "number") {
-                let marker = newLabel(station.geometry.coordinates,{
-                    value: station.properties.WR,
-                });
-                marker.addTo(overlays.winddirection);
-            }
+            // if (typeof station.properties.WR == "number") {
+            //     let marker = newLabel(station.geometry.coordinates,{
+            //         value: station.properties.WR,
+            //     });
+            //     marker.addTo(overlays.winddirection);
+            // }
             map.fitBounds(overlays.stations.getBounds());
         }
 
