@@ -51,6 +51,8 @@ let layerControl = L.control.layers({
     },{
         collapsed : false,
     }).addTo(map);
+
+//Wird dargestellt
 overlays.temperatur.addTo(map);
 
 //Maßstab einbauen
@@ -112,52 +114,28 @@ fetch(awsUrl)
             `);
             marker.addTo(overlays.stations);
             if (typeof station.properties.HS == "number") {
-                let highlightClass = "";
-                if (station.properties.HS > 100) {
-                    highlightClass = "snow-100";
-                }
-                if (station.properties.HS > 200) {
-                    highlightClass = "snow-200";
-                }
-                //https://leafletjs.com/reference-1.7.1.html#divicon
-                let snowIcon = L.divIcon({
-                    html: `<div class="snow-label ${highlightClass}">${station.properties.HS}</div>`
-                })
-                //https://leafletjs.com/reference-1.7.1.html#marker
-                let snowMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: snowIcon
+                let marker = newLabel(station.geometry.coordinates,{
+                    value: station.properties.HS,
                 });
-                snowMarker.addTo(overlays.snowhight);
+                marker.addTo(overlays.snowhight);
             }
             if (typeof station.properties.WG == "number") {
-                let windhighlightClass = "";
-                if (station.properties.WG > 10) {
-                    windhighlightClass = "wind-10";
-                }
-                if (station.properties.WG > 20) {
-                    windhighlightClass = "wind-20";
-                }
-                //https://leafletjs.com/reference-1.7.1.html#divicon
-                let windIcon = L.divIcon({
-                    html: `<div class="wind-label ${windhighlightClass}">${station.properties.WG}</div>`
-                })
-                //https://leafletjs.com/reference-1.7.1.html#marker
-                let windMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: windIcon
+                let marker = newLabel(station.geometry.coordinates,{
+                    value: station.properties.WG,
                 });
-                windMarker.addTo(overlays.windspeed);
+                marker.addTo(overlays.windspeed);
             }
             if (typeof(station.properties.LT) == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.LT,
                 });
                 marker.addTo(overlays.temperatur);
+            }
+            if (typeof station.properties.WR == "number") {
+                let marker = newLabel(station.geometry.coordinates,{
+                    value: station.properties.WR,
+                });
+                marker.addTo(overlays.winddirection);
             }
             map.fitBounds(overlays.stations.getBounds());
         }
