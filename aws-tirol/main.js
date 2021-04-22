@@ -67,8 +67,12 @@ L.control.scale({
 //let hood = L.point()
 
 
+let getColor = (value, colorRamp) => {
+    console.log("Wert: ",value,"Pallete: ",colorRamp)
+};
 
 let newLabel = (coords, options) => {
+    let color = getColor(options.value,options.colors)
     let label = L.divIcon({
         html:`<div>${options.value}</div>`,
         className: "text-label"
@@ -116,18 +120,21 @@ fetch(awsUrl)
             if (typeof station.properties.HS == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.HS,
+                    colors: COLORS.snowheight,
                 });
                 marker.addTo(overlays.snowhight);
             }
             if (typeof station.properties.WG == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.WG,
+                    color: COLORS.windspeed,
                 });
                 marker.addTo(overlays.windspeed);
             }
             if (typeof(station.properties.LT) == "number") {
                 let marker = newLabel(station.geometry.coordinates,{
                     value: station.properties.LT,
+                    color: COLORS.temperature,
                 });
                 marker.addTo(overlays.temperatur);
             }
