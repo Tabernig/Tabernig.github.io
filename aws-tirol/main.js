@@ -68,7 +68,13 @@ L.control.scale({
 
 
 let getColor = (value, colorRamp) => {
-    console.log("Wert: ",value,"Pallete: ",colorRamp)
+    //console.log("Wert: ",value,"Pallete: ",colorRamp);
+    for (let rule of colorRamp) {
+        if ((value >= rule.min) && (value< rule.max)){
+            return rule.col;
+        }
+    }
+    return "black";
 };
 
 let newLabel = (coords, options) => {
