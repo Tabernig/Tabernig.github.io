@@ -62,10 +62,29 @@ L.control.scale({
 }).addTo(map);
 
 
-let hood = L.point()
+//let hood = L.point()
+
+
+
+let newLabel = (coords, options) => {
+    let label = L.divIcon({
+        html:`<div>${options.value}</div>`,
+        className: "text-label"
+    })
+    // console.log("Koordinaten: ", coords);
+    // console.log("Optionsobjekt: ", options);
+    let marker = L.marker([coords[1],coords[0]], {
+        icon: label
+    });
+    //console.log("Marker: ", marker);
+    return marker;
+    //Label erstellen
+    //den Label zurückgeben
+};
+
+
 
 let awsUrl = "https://wiski.tirol.gv.at/lawine/produkte/ogd.geojson";
-
 fetch(awsUrl)
     .then(response => response.json())
     .then(json => {
@@ -135,27 +154,36 @@ fetch(awsUrl)
                 windMarker.addTo(overlays.windspeed);
             }
             if (typeof(station.properties.LT) == "number") {
-                let airThighlightClass = "";
-                if (station.properties.LT < 0) {
-                    airThighlightClass = "airTn";
-                }
-                if (station.properties.LT >= 0) {
-                    airThighlightClass = "airTp";
-                }
-                //https://leafletjs.com/reference-1.7.1.html#divicon
-                let airTIcon = L.divIcon({
-                    html: `<div class="wind-label ${airThighlightClass}">${station.properties.LT}</div>`
-                })
-                //https://leafletjs.com/reference-1.7.1.html#marker
-                let airTMarker = L.marker([
-                    station.geometry.coordinates[1],
-                    station.geometry.coordinates[0]
-                ], {
-                    icon: airTIcon
+                let marker = newLabel(station.geometry.coordinates,{
+                    value: station.properties.LT,
                 });
-                airTMarker.addTo(overlays.temperatur);
+                marker.addTo(overlays.temperatur);
             }
             map.fitBounds(overlays.stations.getBounds());
         }
 
     });
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
