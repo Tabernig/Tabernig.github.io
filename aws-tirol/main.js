@@ -44,15 +44,15 @@ let layerControl = L.control.layers({
     //https://leafletjs.com/reference-1.7.1.html#tilelayer
     "BasemapAt.ESRIworldImagery": L.tileLayer.provider("Esri.WorldImagery"),
 }, {
-    "Wetterstationen Tirol":overlays.stations,
-    "Temperatur (°C)":overlays.temperature,
-    "Schneehöhe (cm)":overlays.snowhight,
-    "Windgeschwindigkeit (km/h)":overlays.windspeed,
-    "Windrichtung":overlays.winddirection,
-    "Luftfeuchtigkeit":overlays.humidity,
-    },{
-        collapsed : false,
-    }).addTo(map);
+    "Wetterstationen Tirol": overlays.stations,
+    "Temperatur (°C)": overlays.temperature,
+    "Schneehöhe (cm)": overlays.snowhight,
+    "Windgeschwindigkeit (km/h)": overlays.windspeed,
+    "Windrichtung": overlays.winddirection,
+    "Luftfeuchtigkeit": overlays.humidity,
+}, {
+    collapsed: false,
+}).addTo(map);
 
 //Wird dargestellt
 overlays.temperature.addTo(map);
@@ -60,7 +60,7 @@ overlays.temperature.addTo(map);
 //Maßstab einbauen
 
 L.control.scale({
-    imperial:false,
+    imperial: false,
     maxWidth: 400,
     position: "bottomright",
 }).addTo(map);
@@ -70,7 +70,7 @@ L.control.scale({
 //Rainviewer
 
 // Change default options
-L.control.rainviewer({ 
+L.control.rainviewer({
     position: 'bottomleft',
     nextButtonText: '>',
     playStopButtonText: 'Play/Stop',
@@ -85,42 +85,35 @@ L.control.rainviewer({
 
 
 
-
-
-
-
-//let hood = L.point()
-
-
 let getColor = (value, colorRamp) => {
     //console.log("Wert: ",value,"Pallete: ",colorRamp);
     for (let rule of colorRamp) {
-        if ((value >= rule.min) && (value< rule.max)){
+        if ((value >= rule.min) && (value < rule.max)) {
             return rule.col
         }
     }
     return "black";
 };
 
-let getDirection = (direction,minmax) => {
-    console.log("Wert: ",direction);
-   for(let rule of minmax) {
-       if ((direction >= rule.min)&& (direction < rule.max)){
-           return rule.dir
-       }
-   }
+let getDirection = (direction, minmax) => {
+    console.log("Wert: ", direction);
+    for (let rule of minmax) {
+        if ((direction >= rule.min) && (direction < rule.max)) {
+            return rule.dir
+        }
+    }
 };
 
 let newLabel = (coords, options) => {
-    let color = getColor(options.value,options.colors);
+    let color = getColor(options.value, options.colors);
     //console.log("Wert ", value, "bekommt Farbe ", color);
     let label = L.divIcon({
-        html:`<div style ="background-color: ${color}">${options.value}</div>`,
+        html: `<div style ="background-color: ${color}">${options.value}</div>`,
         className: "text-label",
     })
     // console.log("Koordinaten: ", coords);
     // console.log("Optionsobjekt: ", options);
-    let marker = L.marker([coords[1],coords[0]], {
+    let marker = L.marker([coords[1], coords[0]], {
         icon: label,
         title: `${options.station} (${coords[2]} m)`
     });
@@ -131,15 +124,15 @@ let newLabel = (coords, options) => {
 };
 
 let newDirection = (coords, options) => {
-    let direction = getDirection(options.value,options.directions);
+    let direction = getDirection(options.value, options.directions);
     //console.log("Wert ", value, "bekommt Farbe ", color);
     let label = L.divIcon({
-        html:`<div>${direction}</div>`,
+        html: `<div>${direction}</div>`,
         className: "text-label",
     })
     // console.log("Koordinaten: ", coords);
     // console.log("Optionsobjekt: ", options);
-    let marker = L.marker([coords[1],coords[0]], {
+    let marker = L.marker([coords[1], coords[0]], {
         icon: label,
         title: `${options.station} (${coords[2]} m)`
     });
@@ -179,7 +172,7 @@ fetch(awsUrl)
             `);
             marker.addTo(overlays.stations);
             if (typeof station.properties.HS == "number") {
-                let marker = newLabel(station.geometry.coordinates,{
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.HS.toFixed(0),
                     colors: COLORS.snowheight,
                     station: station.properties.name
@@ -187,15 +180,15 @@ fetch(awsUrl)
                 marker.addTo(overlays.snowhight);
             }
             if (typeof station.properties.WG == "number") {
-                let marker = newLabel(station.geometry.coordinates,{
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.WG.toFixed(0),
                     colors: COLORS.windspeed,
                     station: station.properties.name
                 });
                 marker.addTo(overlays.windspeed);
             }
-            if (typeof(station.properties.LT) == "number") {
-                let marker = newLabel(station.geometry.coordinates,{
+            if (typeof (station.properties.LT) == "number") {
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.LT.toFixed(1),
                     colors: COLORS.temperature,
                     station: station.properties.name
@@ -203,39 +196,22 @@ fetch(awsUrl)
                 marker.addTo(overlays.temperature);
             }
             if (typeof station.properties.RH == "number" && station.properties.RH > 0) {
-                let marker = newLabel(station.geometry.coordinates,{
+                let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.RH,
                     colors: COLORS.humidity,
                     station: station.properties.name,
                 });
-                marker.addTo(overlays.humidity); 
+                marker.addTo(overlays.humidity);
             }
             if (typeof station.properties.WR == "number" && station.properties.RH > 0) {
-                let marker = newDirection(station.geometry.coordinates,{
+                let marker = newDirection(station.geometry.coordinates, {
                     value: station.properties.WR,
                     directions: DIRECTIONS,
                     station: station.properties.name,
                 });
-                marker.addTo(overlays.winddirection); 
+                marker.addTo(overlays.winddirection);
             }
             map.fitBounds(overlays.stations.getBounds());
         }
 
     });
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
