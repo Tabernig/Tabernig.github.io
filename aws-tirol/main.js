@@ -73,10 +73,19 @@ let getColor = (value, colorRamp) => {
     //console.log("Wert: ",value,"Pallete: ",colorRamp);
     for (let rule of colorRamp) {
         if ((value >= rule.min) && (value< rule.max)){
-            return rule.col;
+            return rule.col
         }
     }
     return "black";
+};
+
+let getDirection = (direction,minmax) => {
+    console.log("Wert: ",direction);
+   for(let rule of minmax) {
+       if ((direction >= rule.min)&& (direction < rule.max)){
+           return rule.dir
+       }
+   }
 };
 
 let newLabel = (coords, options) => {
@@ -84,7 +93,26 @@ let newLabel = (coords, options) => {
     //console.log("Wert ", value, "bekommt Farbe ", color);
     let label = L.divIcon({
         html:`<div style ="background-color: ${color}">${options.value}</div>`,
-        className: "text-label"
+        className: "text-label",
+    })
+    // console.log("Koordinaten: ", coords);
+    // console.log("Optionsobjekt: ", options);
+    let marker = L.marker([coords[1],coords[0]], {
+        icon: label,
+        title: `${options.station} (${coords[2]} m)`
+    });
+    //console.log("Marker: ", marker);
+    return marker;
+    //Label erstellen
+    //den Label zurückgeben
+};
+
+let newDirection = (coords, options) => {
+    let direction = getDirection(options.value,options.directions);
+    //console.log("Wert ", value, "bekommt Farbe ", color);
+    let label = L.divIcon({
+        html:`<div>${direction}</div>`,
+        className: "text-label",
     })
     // console.log("Koordinaten: ", coords);
     // console.log("Optionsobjekt: ", options);
@@ -158,6 +186,14 @@ fetch(awsUrl)
                     station: station.properties.name,
                 });
                 marker.addTo(overlays.humidity); 
+            }
+            if (typeof station.properties.WR == "number" && station.properties.RH > 0) {
+                let marker = newDirection(station.geometry.coordinates,{
+                    value: station.properties.WR,
+                    directions: DIRECTIONS,
+                    station: station.properties.name,
+                });
+                marker.addTo(overlays.winddirection); 
             }
             map.fitBounds(overlays.stations.getBounds());
         }
