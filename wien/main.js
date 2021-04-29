@@ -73,9 +73,9 @@ let drawBusStop = (geoJsonData) => {
 let drawSights = (geoJsonData) => {
     L.geoJson(geoJsonData, {
         onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
-            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            layer.bindPopup(`<strong>${feature.properties.NAME}</strong>
             <hr>
-            Station: ${feature.properties.STAT_NAME}`)
+            Adresse: ${feature.properties.ADRESSE}`)
         },
         pointToLayer: (geoJsonPoint, latlng) => { //Veraendert Marker Symbol
             return L.marker(latlng, {
