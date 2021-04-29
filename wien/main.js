@@ -17,7 +17,8 @@ let baselayers = {
 let overlays = {
     busLines: L.featureGroup(),
     busStops: L.featureGroup(),
-    pedAreas: L.featureGroup()
+    pedAreas: L.featureGroup(),
+    sights: L.featureGroup()
 };
 
 // Karte initialisieren und auf Wiens Wikipedia Koordinate blicken
@@ -40,13 +41,15 @@ let layerControl = L.control.layers({
 }, {
     "Liniennetz Vienna Sightseeing": overlays.busLines,
     "Haltestellen Vienna Sightseeing": overlays.busStops,
-    "Fußgängerzonen": overlays.pedAreas
+    "Fußgängerzonen": overlays.pedAreas,
+    "Sehenswürdigkeiten": overlays.sights
 }).addTo(map);
 
 // alle Overlays nach dem Laden anzeigen
 overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
+overlays.sights.addTo(map);
 
 
 let drawBusStop = (geoJsonData) => {
@@ -66,6 +69,24 @@ let drawBusStop = (geoJsonData) => {
         },
         attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>,<a href='https://mapicons.mapsmarker.com'> Maps Icons Collection</a>"
     }).addTo(overlays.busStops); //alternativ map wenn nicht optional sein soll
+}
+let drawSights = (geoJsonData) => {
+    L.geoJson(geoJsonData, {
+        onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
+            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            <hr>
+            Station: ${feature.properties.STAT_NAME}`)
+        },
+        pointToLayer: (geoJsonPoint, latlng) => { //Veraendert Marker Symbol
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/sehenswuerdigogd.png",
+                    iconSize: [20, 20],
+                })
+            })
+        },
+        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>,<a href='https://mapicons.mapsmarker.com'> Maps Icons Collection</a>"
+    }).addTo(overlays.sights); //alternativ map wenn nicht optional sein soll
 }
 
 
@@ -121,6 +142,9 @@ for (let config of OGDWIEN) {
             }
             if (config.title == "Fußgängerzonen") {
                 drawPedZone(geoJsonData);
+            }
+            if (config.title == "Sehenswürdigkeiten") {
+                drawSights(geoJsonData);
             }
         })
 }
