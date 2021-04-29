@@ -89,10 +89,19 @@ let drawBusLines = (geoJsonData) => {
 }
 let drawPedZone = (geoJsonData) => {
     L.geoJson(geoJsonData, {
+        style: (feature) => {
+            return {
+                stroke: true,
+                color: "silver",
+                fillColor: "yellow",
+                fillOpacity: 0.3
+            }
+        },
         onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
-            layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
+            layer.bindPopup(`<strong>Fussgängerzone: ${feature.properties.ADRESSE}</strong>
             <hr>
-            Station: ${feature.properties.STAT_NAME}`)
+            ${feature.properties.ZEITRAUM} <br>
+            ${feature.properties.AUS_TEXT}`)
         },
         attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>"
     }).addTo(overlays.pedAreas); //alternativ map wenn nicht optional sein soll
