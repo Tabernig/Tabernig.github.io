@@ -100,8 +100,8 @@ let drawPedZone = (geoJsonData) => {
         onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
             layer.bindPopup(`<strong>Fussgängerzone: ${feature.properties.ADRESSE}</strong>
             <hr>
-            ${feature.properties.ZEITRAUM} <br>
-            ${feature.properties.AUS_TEXT}`)
+            ${feature.properties.ZEITRAUM || ""} <br>
+            ${feature.properties.AUS_TEXT || ""}  `)
         },
         attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>"
     }).addTo(overlays.pedAreas); //alternativ map wenn nicht optional sein soll
