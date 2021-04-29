@@ -62,6 +62,7 @@ let drawBusStop = (geoJsonData) => {
                 })
             })
         },
+        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>,<a href='https://mapicons.mapsmarker.com'> Maps Icons Collection</a>"
     }).addTo(overlays.busStops); //alternativ map wenn nicht optional sein soll
 }
 
@@ -75,5 +76,8 @@ for (let config of OGDWIEN) {
             if (config.title == "Haltestellen Vienna Sightseeing") {
                 drawBusStop(geoJsonData);
             }
+            // if (config.title == "Liniennetz Vienna Sightseeing") {
+            //     drawBusStop(geoJsonData);
+            // }
         })
 }
