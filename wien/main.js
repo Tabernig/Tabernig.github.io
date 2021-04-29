@@ -69,7 +69,7 @@ let drawBusStop = (geoJsonData) => {
 }
 
 
-let drawLineSightSeeing = (geoJsonData) => {
+let drawBusLines = (geoJsonData) => {
     L.geoJson(geoJsonData, {
         onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
@@ -100,7 +100,7 @@ for (let config of OGDWIEN) {
                 drawBusStop(geoJsonData);
             }
             if (config.title == "Liniennetz Vienna Sightseeing") {
-                drawLineSightSeeing(geoJsonData);
+                drawBusLines(geoJsonData);
             }
             if (config.title == "Fußgängerzonen") {
                 drawPedZone(geoJsonData);
