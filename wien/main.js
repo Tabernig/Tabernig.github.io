@@ -103,7 +103,7 @@ for (let config of OGDWIEN) {
     fetch(config.data)
         .then(response => response.json())
         .then(geoJsonData => {
-            console.log("Data: ", geoJsonData);
+            //console.log("Data: ", geoJsonData);
             if (config.title == "Haltestellen Vienna Sightseeing") {
                 drawBusStop(geoJsonData);
             }
