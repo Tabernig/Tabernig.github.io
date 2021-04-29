@@ -48,22 +48,50 @@ overlays.busLines.addTo(map);
 overlays.busStops.addTo(map);
 overlays.pedAreas.addTo(map);
 
-fetch("data/TOURISTIKHTSVSLOGD.json")
-    .then(respose => respose.json())
-    .then(stations => {
-        L.geoJson(stations,{
-            onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
-                layer.bindPopup(feature.properties.STAT_NAME)
-            },
-            pointToLayer: (geoJsonPoint, latlng) => { //Veraendert Marker Symbol
-                return L.marker(latlng, {
-                    icon: L.icon({
-                        iconUrl: "icons/busstop.png",
-                        iconSize: [20,20],
-                    })
+
+let drawBusStop = (geoJsonData) => {
+    L.geoJson(geoJsonData, {
+        onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
+            layer.bindPopup(feature.properties.STAT_NAME)
+        },
+        pointToLayer: (geoJsonPoint, latlng) => { //Veraendert Marker Symbol
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/busstop.png",
+                    iconSize: [20, 20],
                 })
-            },
-        }).addTo(map);
-    })
+            })
+        },
+    }).addTo(overlays.busStops); //alternativ map wenn nicht optional sein soll
+}
+
+// fetch("data/TOURISTIKHTSVSLOGD.json")
+//     .then(respose => respose.json())
+//     .then(stations => {
+//         L.geoJson(stations,{
+//             onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
+//                 layer.bindPopup(feature.properties.STAT_NAME)
+//             },
+//             pointToLayer: (geoJsonPoint, latlng) => { //Veraendert Marker Symbol
+//                 return L.marker(latlng, {
+//                     icon: L.icon({
+//                         iconUrl: "icons/busstop.png",
+//                         iconSize: [20,20],
+//                     })
+//                 })
+//             },
+//         }).addTo(map);
+//     })
 
 
+for (let config of OGDWIEN) {
+    //console.log("Config: ", config.data)
+    fetch(config.data)
+        .then(response => response.json())
+        .then(geoJsonData => {
+            console.log("Data: ", geoJsonData);
+            if (config.title == "Haltestellen Vienna Sightseeing") {
+                drawBusStop(geoJsonData);
+            }
+        })
+}
