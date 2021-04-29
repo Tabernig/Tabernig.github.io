@@ -71,10 +71,18 @@ let drawBusStop = (geoJsonData) => {
 
 let drawBusLines = (geoJsonData) => {
     L.geoJson(geoJsonData, {
+        style: (feature) => {
+            let col =  COLORS.buslines["Red Line"];
+            col = COLORS.buslines[feature.properties.LINE_NAME]
+            return {
+                color: col 
+            }
+        },
         onEachFeature: (feature, layer) => { //Stellt bei jedem Marker ein Pop-up mit Namen dar
             layer.bindPopup(`<strong>${feature.properties.LINE_NAME}</strong>
             <hr>
-            Station: ${feature.properties.STAT_NAME}`)
+            von: ${feature.properties.FROM_NAME}<br>
+            nach: ${feature.properties.TO_NAME}`)
         },
         attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>"
     }).addTo(overlays.busLines); //alternativ map wenn nicht optional sein soll
