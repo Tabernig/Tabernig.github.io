@@ -165,7 +165,7 @@ fetch(awsUrl)
                 <li>Temperatur: ${station.properties.LT || "?"}° C </li>
                 <li>Luftfeuchtigkeit: ${station.properties.RH || "?"} % </li>
                 <li>Windgeschwindigkeit: ${station.properties.WG || "?"} km/h </li>
-                <li>Windrichtung: ${getDirection(station.properties.WR,DIRECTIONS) || "?"} ° </li>
+                <li>Windrichtung: ${getDirection(station.properties.WR,DIRECTIONS) || "?"} </li>
                 <li>Schneehöhe: ${station.properties.HS || "?"} cm </li>
             </ul>
             <a target="_blank" href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/tag/${station.properties.plot}.png">Grafik</a>
@@ -195,7 +195,7 @@ fetch(awsUrl)
                 });
                 marker.addTo(overlays.temperature);
             }
-            if (typeof station.properties.RH == "number" && station.properties.RH > 0) {
+            if (typeof station.properties.RH == "number" && station.properties.RH > 0 && station.properties.RH <= 100) {
                 let marker = newLabel(station.geometry.coordinates, {
                     value: station.properties.RH,
                     colors: COLORS.humidity,
