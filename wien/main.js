@@ -67,7 +67,7 @@ let drawBusStop = (geoJsonData) => {
                 })
             })
         },
-        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>,<a href='https://mapicons.mapsmarker.com'> Maps Icons Collection</a>"
+        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>"
     }).addTo(overlays.busStops); //alternativ map wenn nicht optional sein soll
 }
 let drawSights = (geoJsonData) => {
@@ -85,7 +85,7 @@ let drawSights = (geoJsonData) => {
                 })
             })
         },
-        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>,<a href='https://mapicons.mapsmarker.com'> Maps Icons Collection</a>"
+        attribution: "<a href='https://data.wien.gv.at'>Stadt Wien</a>"
     }).addTo(overlays.sights); //alternativ map wenn nicht optional sein soll
 }
 
