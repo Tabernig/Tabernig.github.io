@@ -11,6 +11,7 @@ let baselayers = {
         L.tileLayer.provider("BasemapAT.orthofoto"),
         L.tileLayer.provider("BasemapAT.overlay")
     ]),
+    minimapTest: L.tileLayer.provider("Esri.WorldImagery",{minZoom: 0, maxZoom: 13})
 };
 
 // Overlays für die Themen zum Ein- und Ausschalten definieren
@@ -45,6 +46,8 @@ let layerControl = L.control.layers({
     "Fußgängerzonen": overlays.pedAreas,
     "Sehenswürdigkeiten": overlays.sights
 }).addTo(map);
+
+
 
 // alle Overlays nach dem Laden anzeigen
 overlays.busLines.addTo(map);
@@ -153,4 +156,5 @@ for (let config of OGDWIEN) {
 // Leaflet hash
 L.hash(map);
 
+var miniMap = new L.Control.MiniMap(baselayers.minimapTest).addTo(map);
 
