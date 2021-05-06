@@ -11,7 +11,7 @@ let baselayers = {
         L.tileLayer.provider("BasemapAT.orthofoto"),
         L.tileLayer.provider("BasemapAT.overlay")
     ]),
-    minimap: L.tileLayer.provider("Esri.WorldImagery",{minZoom: 0, maxZoom: 13})
+    minimap: L.tileLayer.provider("OpenRailwayMap",{minZoom: 0, maxZoom: 13})
 };
 
 // Overlays für die Themen zum Ein- und Ausschalten definieren
