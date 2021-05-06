@@ -164,11 +164,19 @@ var miniMap = new L.Control.MiniMap(
     }
 ).addTo(map);
 
+// Reachability Plugin
+
+let styleIntervals = (feature) => {
+    console.log(feature.properties);
+}
+
+
 // 5b3ce3597851110001cf6248cecdb0498c1043eb9a52a444304918f6
 // Initialise the reachability plugin
 L.control.reachability({
     // add settings/options here
     apiKey: '5b3ce3597851110001cf6248cecdb0498c1043eb9a52a444304918f6',
+    styleFn: styleIntervals,
     drawButtonContent: '',
     drawButtonStyleClass: 'fa fa-pencil-alt fa-2x',
     deleteButtonContent: '',
@@ -184,5 +192,5 @@ L.control.reachability({
     travelModeButton3Content: '',
     travelModeButton3StyleClass: 'fa fa-male fa-2x',
     travelModeButton4Content: '',
-    travelModeButton4StyleClass: 'fa fa-wheelchair fa-2x'
+    travelModeButton4StyleClass: 'fa fa-wheelchair fa-2x',
 }).addTo(map);
