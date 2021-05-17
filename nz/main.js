@@ -8,6 +8,7 @@ let stop = {
 };
 
 const map = L.map("map", {
+    fullscreenControl: true,
     // center: [stop.lat,stop.lng],
     // zoom: 13,
     layers: [
@@ -51,6 +52,16 @@ nav.onchange = (evt) => {
     window.location.href = link;
 };
 
+
+// Minimap
+var miniMap = new L.Control.MiniMap(
+    L.tileLayer.provider("OpenTopoMap"), {
+        minZoom: 0, 
+        maxZoom: 13,
+        toggleDisplay: true,
+        minimized: false
+    }
+).addTo(map);
 
 //<option value="tabernig">Sandfly Bay</option>
 
