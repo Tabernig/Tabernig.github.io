@@ -67,11 +67,12 @@ const drawTrack = (nr) => {
         console.log("loaded gpx.");
         map.fitBounds(gpxTrack.getBounds());
         overlays.tracks.bindPopup(`
-        Segement: ${gpxTrack.get_name()} 
+        Streckensegment: ${gpxTrack.get_name()} 
         <hr>
-        Maximal Height: ${Math.round(gpxTrack.get_elevation_max())} m <br>
-        Minimal Height: ${Math.round(gpxTrack.get_elevation_min())} m <br>
-        Total Distance: ${Math.round(gpxTrack.get_distance())/1000} km`)
+        Streckenlänge: ${Math.round(gpxTrack.get_distance())/1000} km <br>
+        Minimale Höhe: ${Math.round(gpxTrack.get_elevation_max())} m <br>
+        Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
+        `)
     });
    
 
