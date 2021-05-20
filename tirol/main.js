@@ -76,7 +76,7 @@ const drawTrack = (nr) => {
         console.log("loaded gpx.");
         map.fitBounds(gpxTrack.getBounds());
         overlays.tracks.bindPopup(`
-        Streckensegment: ${gpxTrack.get_name()} 
+        Etappe: ${gpxTrack.get_name()} 
         <hr>
         Streckenlänge: ${Math.round(gpxTrack.get_distance())/1000} km <br>
         Minimale Höhe: ${Math.round(gpxTrack.get_elevation_max())} m <br>
@@ -89,3 +89,4 @@ const drawTrack = (nr) => {
 const selectedTrack = 20;
 drawTrack(selectedTrack);
 
+console.log("BIKETIROL json", BIKETIROL);
