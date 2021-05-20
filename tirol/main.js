@@ -56,7 +56,9 @@ const elevationConrol = L.control.elevation({
 
 
 const drawTrack = (nr) => {
-    console.log("Track Nr.:",nr)
+    elevationConrol.clear();
+    overlays.tracks.clearLayers();
+    console.log("Track Nr.:",nr);
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true,
         marker_options: {
@@ -102,5 +104,10 @@ for (let track of BIKETIROL) {
         selected = "";
     }
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}:${track.etappe}</option>`;
+}
+
+pulldown.onchange = () => {
+    console.log(pulldown.value);
+    drawTrack(pulldown.value);
 }
 
