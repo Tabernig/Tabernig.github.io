@@ -46,6 +46,15 @@ overlays.tracks.addTo(map);
 // Nummer 20
 
 
+
+const elevationConrol = L.control.elevation({
+    elevationDiv: "#profile",
+    followMarker: false,
+    theme: "silver-theme",
+    
+}).addTo(map);
+
+
 const drawTrack = (nr) => {
     console.log("Track Nr.:",nr)
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
@@ -74,7 +83,9 @@ const drawTrack = (nr) => {
         Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
         `);
     });
+    elevationConrol.load(`tracks/${nr}.gpx`)
 };
 
 const selectedTrack = 20;
 drawTrack(selectedTrack);
+
