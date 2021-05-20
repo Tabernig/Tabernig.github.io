@@ -54,8 +54,19 @@ const drawTrack = (nr) => {
             startIconUrl: `icons/number_${nr}.png`,
             endIconUrl: 'icons/finish.png',
             shadowUrl: null,
-        }
-    }).addTo(overlays.tracks)
+        },
+        polyline_options: {
+            color: 'black',
+            dashArray: [2,5],
+            opacity: 0.5,
+            weight: 3,
+            lineCap: 'round'
+          },
+    }).addTo(overlays.tracks);
+    gpxTrack.on("loaded", () => {
+        console.log("loaded gpx.");
+        map.fitBounds(gpxTrack.getBounds());
+    })
 
 
 };
