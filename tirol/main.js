@@ -72,11 +72,8 @@ const drawTrack = (nr) => {
         Streckenlänge: ${Math.round(gpxTrack.get_distance())/1000} km <br>
         Minimale Höhe: ${Math.round(gpxTrack.get_elevation_max())} m <br>
         Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
-        `)
+        `);
     });
-   
-
-
 };
 
 const selectedTrack = 20;
