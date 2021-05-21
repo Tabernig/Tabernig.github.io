@@ -43,9 +43,6 @@ let layerControl = L.control.layers({
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
 
-// Nummer 20
-
-
 
 const elevationConrol = L.control.elevation({
     elevationDiv: "#profile",
@@ -57,7 +54,9 @@ const elevationConrol = L.control.elevation({
 
 const drawTrack = (nr) => {
     elevationConrol.clear();
+    // 
     overlays.tracks.clearLayers();
+    // 
     console.log("Track Nr.:",nr);
     let gpxTrack = new L.GPX(`tracks/${nr}.gpx`, {
         async: true,
