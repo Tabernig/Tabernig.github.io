@@ -175,10 +175,16 @@ const drawTrack = (nr) => {
 const selectedTrack = 20;
 drawTrack(selectedTrack);
 
+// Ändere Texte
+const updateTexts = (nr) => {
+    console.log(nr)
+};
+
 
 
 // console.log("BIKETIROL json", BIKETIROL);
 let pulldown = document.querySelector("#pulldown");
+
 // console.log("Pulldown: ", pulldown);
 let selected = "";
 for (let track of BIKETIROL) {
@@ -190,14 +196,22 @@ for (let track of BIKETIROL) {
     pulldown.innerHTML += `<option ${selected} value="${track.nr}">${track.nr}:${track.etappe}</option>`;
 }
 
+updateTexts(pulldown.value);
+
+//  Eventhandler für Änderungen des Pulldowns
 pulldown.onchange = () => {
     // console.log(pulldown.value);
     drawTrack(pulldown.value);
+    
+    // Metadaten der Etappe Updaten
+    updateTexts(pulldown.value);
 };
+
 
 map.on("zoomend moveend", () => {
     //  Wikipedia Artikel zeichnen
     drawWikipedia(map.getBounds());
-})
+});
+
 
 
