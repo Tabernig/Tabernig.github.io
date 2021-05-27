@@ -188,7 +188,7 @@ const updateTexts = (nr) => {
                 // gibt es ein Element im HMTL mit der ID von "key"?
                 if (document.querySelector(`#text-${key}`)) {
                     console.log("Juhu", key, etappe[key])
-                    document.querySelector(`#text-${key}`).innerHTML =  `Etappe: ${etappe[key]}`;
+                    document.querySelector(`#text-${key}`).innerHTML =  etappe[key];
                 }
             }
         }
