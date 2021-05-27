@@ -55,7 +55,9 @@ const elevationConrol = L.control.elevation({
 
 // Wikipedia Artikel Zeichnen
 const drawWikipedia = (bounds) => {
-    console.log(bounds)
+    console.log(bounds);
+    let url = `https://secure.geonames.org/wikipediaBoundingBoxJSON?north=${bounds.getNorth()}&south=${bounds.getSouth()}&east=${bounds.getEast()}&west=${bounds.getWest()}&username=tabernig&lang=de`;
+    console.log(url)
 };
 
 
@@ -93,7 +95,7 @@ const drawTrack = (nr) => {
         Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
         `);
         //  Wikipedia Artikel zeichnen
-        drawWikipedia(gpxTrack.getBounds())
+        drawWikipedia(gpxTrack.getBounds());
     });
     elevationConrol.load(`tracks/${nr}.gpx`)
 };
