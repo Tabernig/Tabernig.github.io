@@ -183,6 +183,7 @@ const updateTexts = (nr) => {
         // ist es die aktuelle Etappe?
         if (etappe.nr == nr) {
             // console.log("unsere Etappe",etappe);
+            etappe.homepage = `<a target="Homepage" href="${etappe.weblink}">Homepage</a>`;
             for (let key in etappe) {
                 // console.log(key,etappe[key]);
                 // gibt es ein Element im HMTL mit der ID von "key"?
