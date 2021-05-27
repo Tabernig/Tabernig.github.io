@@ -177,7 +177,14 @@ drawTrack(selectedTrack);
 
 // Ändere Texte
 const updateTexts = (nr) => {
-    console.log(nr)
+    // console.log(nr);
+    for (let etappe of BIKETIROL) {
+        // console.log(etappe)
+        // ist es die aktuelle Etappe?
+        if (etappe.nr == nr) {
+            console.log("unsere Etappe",etappe);
+        }
+    }
 };
 
 
@@ -202,7 +209,7 @@ updateTexts(pulldown.value);
 pulldown.onchange = () => {
     // console.log(pulldown.value);
     drawTrack(pulldown.value);
-    
+
     // Metadaten der Etappe Updaten
     updateTexts(pulldown.value);
 };
