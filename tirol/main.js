@@ -16,7 +16,8 @@ let baselayers = {
 
 // Overlays für die Themen zum Ein- und Ausschalten definieren
 let overlays = {
-    tracks: L.featureGroup()
+    tracks: L.featureGroup(),
+    wikipedia: L.featureGroup()
 };
 
 // Karte initialisieren und auf Innsbrucks Wikipedia Koordinate blicken
@@ -37,19 +38,27 @@ let layerControl = L.control.layers({
     "basemap.at hochauflösend": baselayers.highdpi,
     "basemap.at Orthofoto beschriftet": baselayers.ortho_overlay
 }, {
-    "GPX-Tracks": overlays.tracks
+    "GPX-Tracks": overlays.tracks,
+    "Wikipedia-Artikel": overlays.wikipedia
 }).addTo(map);
 
 // Overlay mit GPX-Track anzeigen
 overlays.tracks.addTo(map);
-
+overlays.wikipedia.addTo(map);
 
 const elevationConrol = L.control.elevation({
     elevationDiv: "#profile",
     followMarker: false,
     theme: "silver-theme",
-    
 }).addTo(map);
+
+
+// Wikipedia Artikel Zeichnen
+const drawWikipedia = (bounds) => {
+    console.log(bounds)
+};
+
+
 
 
 const drawTrack = (nr) => {
@@ -83,6 +92,8 @@ const drawTrack = (nr) => {
         Minimale Höhe: ${Math.round(gpxTrack.get_elevation_max())} m <br>
         Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
         `);
+        //  Wikipedia Artikel zeichnen
+        drawWikipedia(gpxTrack.getBounds())
     });
     elevationConrol.load(`tracks/${nr}.gpx`)
 };
