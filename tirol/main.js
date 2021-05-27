@@ -155,8 +155,7 @@ const drawTrack = (nr) => {
         Minimale Höhe: ${Math.round(gpxTrack.get_elevation_max())} m <br>
         Maximale Höhe: ${Math.round(gpxTrack.get_elevation_min())} m <br>
         `);
-        //  Wikipedia Artikel zeichnen
-        drawWikipedia(gpxTrack.getBounds());
+        
     });
     elevationConrol.load(`tracks/${nr}.gpx`)
 };
@@ -182,5 +181,11 @@ for (let track of BIKETIROL) {
 pulldown.onchange = () => {
     console.log(pulldown.value);
     drawTrack(pulldown.value);
-}
+};
+
+map.on("zoomend moveend", () => {
+    //  Wikipedia Artikel zeichnen
+    drawWikipedia(map.getBounds());
+})
+
 
