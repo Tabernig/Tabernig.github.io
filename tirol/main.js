@@ -182,9 +182,14 @@ const updateTexts = (nr) => {
         // console.log(etappe)
         // ist es die aktuelle Etappe?
         if (etappe.nr == nr) {
-            console.log("unsere Etappe",etappe);
+            // console.log("unsere Etappe",etappe);
             for (let key in etappe) {
-                console.log(key,etappe[key])
+                // console.log(key,etappe[key]);
+                // gibt es ein Element im HMTL mit der ID von "key"?
+                if (document.querySelector(`#text-${key}`)) {
+                    console.log("Juhu", key, etappe[key])
+                    document.querySelector(`#text-${key}`).innerHTML =  `Etappe: ${etappe[key]}`;
+                }
             }
         }
     }
